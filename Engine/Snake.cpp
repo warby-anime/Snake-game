@@ -1,8 +1,10 @@
 #include "Snake.h"
 #include <assert.h>
 #include "Goal.h"
+#include <algorithm>
 
 Snake::Snake (const Location& loc)
+	:rng (std::random_device ( )())
 {
 	segments[0].InitHead (loc);
 }
@@ -13,10 +15,11 @@ void Snake::Segment::InitHead (const Location& in_loc)
 	c = Snake::headColor;
 }
 
-void Snake::Segment::InitBody ( )
+void Snake::Segment::InitBody (std::mt19937& rng)
 {
-	
-	c = Snake::bodyColor;
+	std::uniform_int_distribution<int> dist (60, 200);
+	int greenValue = dist (rng);
+	c = Colors::MakeRGB (0, greenValue, 0);
 }
 
 void Snake::Segment::Follow (const Segment& next)
@@ -60,7 +63,7 @@ void Snake::Grow ( )
 {
 	if (nSegments < nSegmentsMax)
 	{
-		segments[nSegments].InitBody ( );
+		segments[nSegments].InitBody ( rng);
 		++nSegments;
 	}
 }

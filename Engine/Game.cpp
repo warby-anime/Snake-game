@@ -88,6 +88,7 @@ void Game::UpdateModel ( )
 					if (eating)
 					{
 						snek.Grow ( );
+						
 					}
 					snek.MoveBy (delta_loc);
 					if (eating)

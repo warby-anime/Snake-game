@@ -51,7 +51,7 @@ private:
 	std::mt19937 rng;
 	Goal goal;
 	Location delta_loc = { 0,1 };
-	static constexpr int snekMovePeriod = 600;
+	static constexpr int snekMovePeriod = 200;
 	int snekMoveCounter = 0;
 	bool isStarted = false;
 	bool gameIsOver = false;
