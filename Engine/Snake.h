@@ -33,8 +33,8 @@ public:
 
 private:
 	static constexpr Color headColor = Colors::Yellow;
-	static constexpr Color bodyColor = Colors::Green;
-	static constexpr int nSegmentsMax = 100;
+	static constexpr Color bodyColor = Colors::MakeRGB (0, 130, 0);
+	static constexpr int nSegmentsMax = 180;
 	Segment segments[nSegmentsMax];
 	int nSegments = 1;
 	

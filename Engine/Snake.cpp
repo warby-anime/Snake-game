@@ -15,6 +15,7 @@ void Snake::Segment::InitHead (const Location& in_loc)
 
 void Snake::Segment::InitBody ( )
 {
+	
 	c = Snake::bodyColor;
 }
 

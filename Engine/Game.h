@@ -53,6 +53,7 @@ private:
 	Location delta_loc = { 0,1 };
 	static constexpr int snekMovePeriod = 600;
 	int snekMoveCounter = 0;
+	bool isStarted = false;
 	bool gameIsOver = false;
 	
 
