@@ -32,7 +32,11 @@ Game::Game( MainWindow& wnd )
 	snek ({ 2,2 }),
 	goal (rng, brd, snek)
 	
+	
+	
 {
+	
+	
 }
 
 void Game::Go()
@@ -71,7 +75,9 @@ void Game::UpdateModel ( )
 			else if (wnd.kbd.KeyIsPressed (VK_RIGHT))
 			{
 				delta_loc = { 1,0 };
+
 			}
+
 			++snekMoveCounter;
 			if (snekMoveCounter >= snekMovePeriod)
 			{
@@ -88,13 +94,33 @@ void Game::UpdateModel ( )
 					if (eating)
 					{
 						snek.Grow ( );
-						
+						if (snekMovePeriod > 100)
+						{
+
+							snekMovePeriod -= 10;
+						}
+
 					}
 					snek.MoveBy (delta_loc);
 					if (eating)
 					{
 						goal.Respawn (rng, brd, snek);
+						nObstacles++;
+						for (int i = 0; i < nObstacles; i++)
+						{
+							obstacle[i] = Obstacle (rng, brd, snek);
+						}
 					}
+					bool isCollidingWithObstacle = false;
+					for (int i = 0; i < nObstacles; i++)
+					{
+						if (snek.IsInTileExceptEnd (obstacle[i].GetLocation ( )))
+						{
+							isCollidingWithObstacle = true;
+							gameIsOver = true;
+						}
+					}
+
 				}
 			}
 		}
@@ -112,6 +138,12 @@ void Game::ComposeFrame ( )
 	{
 
 		snek.Draw (brd);
+		
+			for (int i = 0; i < nObstacles; i++)
+			{
+				obstacle[i].Draw (brd);
+			}
+
 		goal.Draw (brd);
 		if (gameIsOver)
 		{

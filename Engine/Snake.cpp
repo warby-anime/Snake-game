@@ -1,7 +1,7 @@
 #include "Snake.h"
 #include <assert.h>
 #include "Goal.h"
-#include <algorithm>
+
 
 Snake::Snake (const Location& loc)
 	:rng (std::random_device ( )())
@@ -50,6 +50,7 @@ void Snake::MoveBy (const Location& delta_loc)
 		segments[i].Follow (segments[i - 1]);
 	}
 	segments[0].MoveBy (delta_loc);
+	
 }
 
 Location Snake::GetNextHeadLocation (const Location& delta_loc) const
@@ -66,6 +67,7 @@ void Snake::Grow ( )
 		segments[nSegments].InitBody ( rng);
 		++nSegments;
 	}
+	
 }
 
 

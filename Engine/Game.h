@@ -27,6 +27,7 @@
 #include <random>
 #include "Snake.h"
 #include "Goal.h"
+#include "Obstacle.h"
 
 class Game
 {
@@ -50,9 +51,12 @@ private:
 	Snake snek;
 	std::mt19937 rng;
 	Goal goal;
+	static constexpr int nObstaclesMax =  100;
+	Obstacle obstacle[nObstaclesMax];
+	int nObstacles = 0;
 	Location delta_loc = { 0,1 };
-	static constexpr int snekMovePeriod = 200;
-	int snekMoveCounter = 0;
+	 int snekMovePeriod = 300;
+	int snekMoveCounter = 1;
 	bool isStarted = false;
 	bool gameIsOver = false;
 	
