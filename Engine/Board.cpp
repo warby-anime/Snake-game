@@ -12,7 +12,11 @@ void Board::DrawCell (const Location& loc, Color c)
 	assert (loc.x < width);
 	assert (loc.y >= 0);
 	assert (loc.y < height);
-	gfx.DrawRectDim (x + loc.x * dimension , y + loc.y * dimension, dimension, dimension, c);
+
+	const int off_x = x + borderWidth + borderPadding;
+	const int off_y = y + borderWidth + borderPadding;
+
+	gfx.DrawRectDim ( loc.x * dimension + off_x + cellPadding ,loc.y * dimension + off_y + cellPadding, dimension - cellPadding * 2, dimension - cellPadding *2, c);
 
 }
 

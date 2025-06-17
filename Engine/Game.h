@@ -55,9 +55,12 @@ private:
 	Obstacle obstacle[nObstaclesMax];
 	int nObstacles = 0;
 	Location delta_loc = { 0,1 };
-	 int snekMovePeriod = 300;
-	int snekMoveCounter = 1;
-	bool isStarted = false;
+	static constexpr int snekMovePeriodMin = 100;
+	int snekMovePeriod = 300;
+	int snekMoveCounter = 0;
+	static constexpr int snekSpeedUpPeriod = 180;
+	int snekSpeedUpCounter = 0;
+	bool gameIsStarted = false;
 	bool gameIsOver = false;
 	
 
