@@ -49,11 +49,7 @@ void Game::Go()
 
 void Game::UpdateModel ( )
 {
-	if (wnd.kbd.KeyIsPressed (VK_RETURN))
-	{
-		isStarted = true;
-	}
-	if (isStarted)
+	if (gameIsStarted)
 	{
 		if (!gameIsOver)
 		{
@@ -94,11 +90,6 @@ void Game::UpdateModel ( )
 					if (eating)
 					{
 						snek.Grow ( );
-						if (snekMovePeriod > 100)
-						{
-
-							snekMovePeriod -= 10;
-						}
 
 					}
 					snek.MoveBy (delta_loc);
@@ -123,20 +114,25 @@ void Game::UpdateModel ( )
 
 				}
 			}
+			++snekSpeedUpCounter;
+			if (snekSpeedUpCounter >= snekSpeedUpPeriod)
+			{
+				snekSpeedUpCounter = 0;
+				snekMovePeriod = std::max(snekMovePeriod - 1,snekMovePeriodMin);
+			}
 		}
+	}
+	else
+	{
+		gameIsStarted = wnd.kbd.KeyIsPressed (VK_RETURN);
 	}
 	
 }
 
 void Game::ComposeFrame ( )
 {
-	if (!isStarted)
+	if (gameIsStarted)
 	{
-		SpriteCodex::DrawTitle (300, 200, gfx);
-	}
-	else
-	{
-
 		snek.Draw (brd);
 		
 			for (int i = 0; i < nObstacles; i++)
@@ -147,8 +143,13 @@ void Game::ComposeFrame ( )
 		goal.Draw (brd);
 		if (gameIsOver)
 		{
-			SpriteCodex::DrawGameOver (400, 300, gfx);
+			SpriteCodex::DrawGameOver (350, 265, gfx);
 		}
 		brd.DrawGridBorder ( );
+		
+	}
+	else
+	{
+		SpriteCodex::DrawTitle (290, 225, gfx);
 	}
 }

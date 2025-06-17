@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Board.h"
-#include <random>
+
 
 
 
@@ -12,7 +12,7 @@ private:
 	{
 	public:
 		void InitHead (const Location& in_loc);
-		void InitBody (std::mt19937& rng);
+		void InitBody (Color c);
 		void Follow (const Segment& next);
 		void MoveBy (const Location& delta_loc);
 		void Draw (Board& brd) const;
@@ -33,9 +33,7 @@ public:
 	bool IsInTile (const Location& target) const;
 
 private:
-	std::mt19937 rng;
 	static constexpr Color headColor = Colors::Yellow;
-	Color bodyColor;
 	static constexpr int nSegmentsMax = 180;
 	Segment segments[nSegmentsMax];
 	int nSegments = 1;

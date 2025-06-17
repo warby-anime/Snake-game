@@ -4,8 +4,19 @@
 
 
 Snake::Snake (const Location& loc)
-	:rng (std::random_device ( )())
+	
 {
+	constexpr int nBodyColors = 4;
+	constexpr Color BodyColors[nBodyColors] = {
+	{ 10,100,32 },
+	{ 10,130,48 },
+	{ 18,160,48 },
+	{ 10,130,48 }
+	};
+	for (int i = 0; i < nSegmentsMax; i++)
+	{
+		segments[i].InitBody (BodyColors[i % nBodyColors]);
+	}
 	segments[0].InitHead (loc);
 }
 
@@ -15,11 +26,9 @@ void Snake::Segment::InitHead (const Location& in_loc)
 	c = Snake::headColor;
 }
 
-void Snake::Segment::InitBody (std::mt19937& rng)
+void Snake::Segment::InitBody (Color c_in)
 {
-	std::uniform_int_distribution<int> dist (60, 200);
-	int greenValue = dist (rng);
-	c = Colors::MakeRGB (0, greenValue, 0);
+	c = c_in;
 }
 
 void Snake::Segment::Follow (const Segment& next)
@@ -64,7 +73,6 @@ void Snake::Grow ( )
 {
 	if (nSegments < nSegmentsMax)
 	{
-		segments[nSegments].InitBody ( rng);
 		++nSegments;
 	}
 	
